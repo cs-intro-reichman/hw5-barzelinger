@@ -22,7 +22,6 @@ public class Wordle {
     // Simple helper: check if letter c appears anywhere in secret (true), otherwise
     // return false.
     public static boolean containsChar(String secret, char c) {
-        c = Character.toUpperCase(c);
         // go over each letter in secret word.
         for (int i = 0; i < 5; i++){
             // if char is in the secret word return true.
@@ -38,14 +37,12 @@ public class Wordle {
     public static void computeFeedback(String secret, String guess, char[] resultRow) {
 		// go over the letters of the secret word and guess.
         for (int i = 0; i < 5; i++){
-            // makes sure the guess letter is uppercase.
-            char temp_letter = Character.toUpperCase(guess.charAt(i));
             // if exact match - G.
-            if (temp_letter == secret.charAt(i)){
+            if (guess.charAt(i) == secret.charAt(i)){
                 resultRow[i] = 'G';
             }
             // if letter appears anywhere else - Y. uses containsChar.
-            else if (containsChar(secret, temp_letter)){
+            else if (containsChar(secret, guess.charAt(i))){
                 resultRow[i] = 'Y';
             }
             // else - _.
@@ -68,7 +65,7 @@ public class Wordle {
         for (int i = 0; i < 5; i++){
             // insert each letter in the guesss array.
             char GuessLetter = guess.charAt(i);
-            guesses[row][i] = Character.toUpperCase(GuessLetter);
+            guesses[row][i] = GuessLetter;
         }
     }
 
@@ -137,7 +134,7 @@ public class Wordle {
             // Loop until you read a valid guess
             while (!valid) {
                 System.out.print("Enter your guess (5-letter word): ");
-                guess = inp.readString();
+                guess = inp.readString().toUpperCase();
                 
                 if (guess.length() != 5) {
                     System.out.println("Invalid word. Please try again.");
